@@ -1,0 +1,628 @@
+/* =========================================
+   PORTFOLIO — KYAN DAUCHEZ
+   Style brut : bordures noires, grille visible,
+   typo grasse + monospace, une couleur d'accent.
+   ========================================= */
+
+/* ---------- Variables : change les couleurs ici ---------- */
+:root {
+    --fond: #efede8;        /* fond de la page */
+    --encre: #111111;       /* texte et bordures */
+    --accent: #ff4a1c;      /* couleur d'accent (orange) */
+    --bord: 2px solid var(--encre);
+    --titre: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Courier New", Courier, ui-monospace, monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--fond);
+    color: var(--encre);
+    font-family: var(--mono);
+    font-size: 16px;
+    line-height: 1.5;
+    border-left: var(--bord);
+    border-right: var(--bord);
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* ---------- En-tête ---------- */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    background: var(--fond);
+    border-bottom: var(--bord);
+}
+
+.logo {
+    font-family: var(--titre);
+    font-size: 18px;
+    padding: 14px 20px;
+    border-right: var(--bord);
+}
+
+.nav {
+    display: flex;
+}
+
+.nav a {
+    padding: 14px 20px;
+    border-left: var(--bord);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.nav a:hover,
+.logo:hover {
+    background: var(--encre);
+    color: var(--fond);
+}
+
+/* ---------- Intro ---------- */
+.intro {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border-bottom: var(--bord);
+}
+
+.intro h1 {
+    font-family: var(--titre);
+    font-size: clamp(48px, 10vw, 150px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    padding: 40px 20px;
+    border-right: var(--bord);
+}
+
+.intro-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.intro-side p {
+    padding: 20px;
+    font-size: 18px;
+}
+
+.intro-side .stage {
+    background: var(--accent);
+    border-top: var(--bord);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* ---------- Titres de section ---------- */
+.section-title {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    border-bottom: var(--bord);
+}
+
+.section-title span {
+    padding: 12px 20px;
+    font-weight: bold;
+}
+
+.section-title span:first-child {
+    border-right: var(--bord);
+}
+
+.section-title span:last-child {
+    border-left: var(--bord);
+    text-align: right;
+}
+
+.section-title h2 {
+    font-family: var(--titre);
+    font-size: 28px;
+    padding: 6px 20px;
+}
+
+/* ---------- Mosaïque ---------- */
+.mosaic {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 260px;
+    grid-auto-flow: dense;        /* remplit les trous automatiquement */
+    gap: 2px;
+    background: var(--encre);     /* le "gap" noir dessine les lignes de la grille */
+    border-bottom: var(--bord);
+}
+
+.tile {
+    position: relative;
+    overflow: hidden;
+    background: var(--fond);
+    display: block;
+}
+
+/* Tailles des tuiles */
+.tile.wide { grid-column: span 2; }
+.tile.tall { grid-row: span 2; }
+.tile.big  { grid-column: span 2; grid-row: span 2; }
+.tile.xl   { grid-column: span 3; grid-row: span 2; }
+/* Bannière xxl : en dehors de la grille, l'image garde ses proportions (pas de zoom) */
+.tile.xxl {
+    border-bottom: var(--bord);
+}
+.tile.xxl img {
+    height: auto;
+}
+.tile.xxl .caption {
+    position: static;             /* légende sous l'image, pas par-dessus */
+}
+
+.tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.tile:hover img {
+    transform: scale(1.04);
+}
+
+/* Légende posée en bas de chaque tuile */
+.caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background: var(--fond);
+    border-top: var(--bord);
+    font-size: 13px;
+}
+
+.caption span {
+    padding: 6px 10px;
+}
+
+.caption .num {
+    border-right: var(--bord);
+    font-weight: bold;
+}
+
+.caption .name {
+    flex: 1;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.caption .cat {
+    border-left: var(--bord);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tile:hover .caption {
+    background: var(--accent);
+}
+
+/* Badge "VOIR" sur la vidéo */
+.play {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--accent);
+    border: var(--bord);
+    padding: 4px 10px;
+    font-weight: bold;
+}
+
+/* Tuile texte (sans image) : clip Polian */
+.tile.text {
+    background: var(--encre);
+    color: var(--fond);
+}
+
+.text-cover {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 60px 24px 50px;
+}
+
+.text-big {
+    font-family: var(--titre);
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.85;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+}
+
+.text-small {
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.tile.text:hover .text-big {
+    color: var(--fond);
+}
+
+.tile.text .caption {
+    color: var(--encre);
+}
+
+/* Tuile logos : 4 déclinaisons en grille */
+.logos {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    min-height: 0;
+    gap: 2px;
+    background: var(--encre);
+    margin-bottom: 32px;          /* laisse la place à la légende */
+}
+
+.logo-grid img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    background: var(--fond);
+    padding: 8px;
+}
+
+/* ---------- Formation ---------- */
+.formation-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border-bottom: var(--bord);
+}
+
+.formation-year {
+    font-family: var(--titre);
+    font-size: clamp(36px, 5vw, 72px);
+    line-height: 1;
+    padding: 30px 20px;
+    border-right: var(--bord);
+    background: var(--accent);
+}
+
+.formation-text {
+    padding: 30px 20px;
+    font-size: 18px;
+}
+
+.formation-text h3 {
+    font-family: var(--titre);
+    font-size: clamp(20px, 2.5vw, 32px);
+    line-height: 1.1;
+    margin-bottom: 10px;
+}
+
+.formation-tag {
+    display: inline-block;
+    margin-top: 14px;
+    border: var(--bord);
+    padding: 4px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+/* ---------- Expérience ---------- */
+.xp-head {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border-bottom: var(--bord);
+    background: var(--encre);
+    color: var(--fond);
+}
+
+.xp-place {
+    font-family: var(--titre);
+    font-size: clamp(20px, 2.5vw, 32px);
+    line-height: 1;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.xp-role {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 20px;
+    border-left: 2px solid var(--fond);
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.xp-date {
+    color: var(--fond);
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.missions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--encre);     /* les traits noirs entre les cases */
+    border-bottom: var(--bord);
+}
+
+.mission {
+    background: var(--fond);
+    padding: 20px;
+}
+
+.mission:hover {
+    background: var(--accent);
+}
+
+.mission-num {
+    display: inline-block;
+    border: var(--bord);
+    padding: 2px 8px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.mission h3 {
+    font-family: var(--titre);
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.mission p + p {
+    margin-top: 10px;
+}
+
+.gear {
+    display: grid;
+    grid-template-columns: auto 1fr;  /* la 1re colonne prend la largeur de son texte */
+    border-bottom: var(--bord);
+}
+
+.gear span {
+    font-family: var(--titre);
+    white-space: nowrap;          /* reste sur une seule ligne */
+    padding: 14px 20px;
+    border-right: var(--bord);
+}
+
+.gear p {
+    padding: 14px 20px;
+}
+
+/* ---------- À propos ---------- */
+.about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border-bottom: var(--bord);
+}
+
+.about-text {
+    border-right: var(--bord);
+}
+
+.about-text p {
+    padding: 30px 20px;
+    font-size: 20px;
+    max-width: 800px;
+}
+
+.stage-box {
+    background: var(--encre);
+    color: var(--fond);
+    max-width: none !important;
+    border-top: var(--bord);
+}
+
+.stage-box strong {
+    display: block;
+    font-family: var(--titre);
+    font-size: clamp(24px, 3vw, 40px);
+    line-height: 1.05;
+    color: var(--accent);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.skills {
+    list-style: none;
+}
+
+.skills li {
+    padding: 16px 20px;
+    border-bottom: var(--bord);
+}
+
+.skills li:last-child {
+    border-bottom: none;
+}
+
+.skills span {
+    display: block;
+    font-family: var(--titre);
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+/* ---------- Contact ---------- */
+.mail {
+    display: block;
+    font-family: var(--titre);
+    font-size: clamp(24px, 5vw, 70px);
+    padding: 30px 20px;
+    border-bottom: var(--bord);
+    word-break: break-all;
+}
+
+.mail:hover {
+    background: var(--accent);
+}
+
+.links {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: var(--bord);
+}
+
+.links a {
+    padding: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-right: var(--bord);
+}
+
+.links a:last-child {
+    border-right: none;
+}
+
+.links a:hover {
+    background: var(--encre);
+    color: var(--fond);
+}
+
+/* ---------- Pied de page ---------- */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 20px;
+    font-size: 14px;
+}
+
+/* ---------- Tablette ---------- */
+@media (max-width: 900px) {
+    .mosaic {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 220px;
+    }
+
+    .tile.xl {
+        grid-column: span 2;
+    }
+
+    .intro,
+    .about-grid,
+    .xp-head {
+        grid-template-columns: 1fr;
+    }
+
+    .missions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .xp-role {
+        border-left: none;
+        border-top: 2px solid var(--fond);
+    }
+
+    .intro h1,
+    .about-text {
+        border-right: none;
+        border-bottom: var(--bord);
+    }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 560px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .logo {
+        border-right: none;
+        border-bottom: var(--bord);
+    }
+
+    .nav a {
+        flex: 1;
+        text-align: center;
+        padding: 12px 2px;
+        font-size: 11px;
+    }
+
+    .formation-grid,
+    .missions,
+    .gear {
+        grid-template-columns: 1fr;
+    }
+
+    .formation-year,
+    .gear span {
+        border-right: none;
+        border-bottom: var(--bord);
+    }
+
+    .nav a:first-child {
+        border-left: none;
+    }
+
+    .mosaic {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 300px;
+    }
+
+    .tile.wide,
+    .tile.big,
+    .tile.xl {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .tile.tall {
+        grid-row: span 2;
+    }
+
+    .caption .cat {
+        display: none;
+    }
+
+    .links {
+        grid-template-columns: 1fr;
+    }
+
+    .links a {
+        border-right: none;
+        border-bottom: var(--bord);
+    }
+
+    .links a:last-child {
+        border-bottom: none;
+    }
+}
