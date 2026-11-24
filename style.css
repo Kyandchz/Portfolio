@@ -86,7 +86,7 @@ img {
 
 .nav a:hover,
 .logo:hover {
-    background: var(--encre);
+    background: purple;
     color: var(--fond);
 }
 
